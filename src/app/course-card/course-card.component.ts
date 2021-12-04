@@ -5,6 +5,7 @@ import {
     ContentChildren,
     ElementRef,
     EventEmitter,
+    Inject,
     Input,
     OnInit,
     Output,
@@ -13,11 +14,13 @@ import {
 } from '@angular/core';
 import {Course} from '../model/course';
 import {CourseImageComponent} from '../course-image/course-image.component';
+import { CoursesService } from '../services/courses.service';
 
 @Component({
     selector: 'course-card',
     templateUrl: './course-card.component.html',
     styleUrls: ['./course-card.component.css']
+  //  providers:[CoursesService]
 })
 export class CourseCardComponent implements OnInit {
 
@@ -31,7 +34,8 @@ export class CourseCardComponent implements OnInit {
     courseEmitter = new EventEmitter<Course>();
 
 
-    constructor() {
+    constructor( private coursesService:CoursesService) {
+        console.log("Course-Card Component creating courses Service instance ", this.coursesService.id);
 
     }
 

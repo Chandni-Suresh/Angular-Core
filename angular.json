@@ -4,6 +4,14 @@
   "newProjectRoot": "projects",
   "projects": {
     "angular-course": {
+      "i18n": {
+        "locales": {
+          "fr": {
+            "translation": "src/locale/messages.fr.xlf",
+            "baseHref": ""
+          }
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -30,6 +38,10 @@
               "src/styles.css"
             ],
             "scripts": [
+              {
+                "input": "node_modules/document-register-element/build/document-register-element.js",
+                "inject": true
+              },
               {
                 "input": "node_modules/document-register-element/build/document-register-element.js",
                 "inject": true
@@ -63,6 +75,18 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true
+            },
+            "fr": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "outputPath": "dist/angular-course-fr/",
+              "i18nFile": "src/locale/messages.fr.xlf",
+              "i18nLocale": "fr",
+              "i18nMissingTranslation": "ignore"
             }
           }
         },
@@ -74,6 +98,9 @@
           "configurations": {
             "production": {
               "browserTarget": "angular-course:build:production"
+            },
+            "fr": {
+              "browserTarget": "angular-course:build:fr"
             }
           }
         },
@@ -148,6 +175,6 @@
   },
   "defaultProject": "angular-course",
   "cli": {
-    "analytics": "f1c06a76-7ca0-486f-aa03-e6051586f3c1"
+    "analytics": "e878a578-eb4f-4c7c-bbaf-6f0c4ac42135"
   }
 }

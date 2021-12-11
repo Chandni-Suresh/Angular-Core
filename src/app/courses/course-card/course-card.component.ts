@@ -8,7 +8,9 @@ import {
     Input, OnChanges,
     OnDestroy,
     OnInit,
-    Output
+    Output,
+    Self,
+    SkipSelf
 } from '@angular/core';
 import {Course} from '../../model/course';
 import {CoursesService} from '../courses.service';
@@ -18,7 +20,8 @@ import {CoursesService} from '../courses.service';
 @Component({
     selector: 'course-card',
     templateUrl: './course-card.component.html',
-    styleUrls: ['./course-card.component.css']
+    styleUrls: ['./course-card.component.css'],
+    providers:[CoursesService]
 })
 export class CourseCardComponent implements  OnInit {
 
@@ -32,12 +35,8 @@ export class CourseCardComponent implements  OnInit {
     courseEmitter = new EventEmitter<Course>();
 
 
-
-
-    constructor(private coursesService: CoursesService,
+    constructor(@SkipSelf() private coursesService: CoursesService,
                 @Attribute('type') private type: string) {
-
-
     }
 
     ngOnInit() {

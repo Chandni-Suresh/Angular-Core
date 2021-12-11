@@ -4,9 +4,7 @@ import { Observable } from 'rxjs';
 import { Course } from '../model/course';
 let counter=1;
 
-@Injectable({
-  providedIn:'root'
-})
+@Injectable()
 export class CoursesService {
 
   id:number;

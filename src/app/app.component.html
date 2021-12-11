@@ -15,10 +15,22 @@
 
   <div class="courses">
 
-    <course-card *ngFor="let course of  courses$ |async " (courseChanged)="save($event)" type="beginner"
-      [course]="course">
+    <course-card [highlighted]="true" (toggleHighlight)="OnToggleEvenetHandler($event)"
+      *ngFor="let course of  courses$ |async " (courseChanged)="save($event)" type="beginner" [course]="course"
+      #highlighter="hld">
 
-      <course-image [src]="course.iconUrl"></course-image>
+
+
+
+      <course-image [src]="course.iconUrl" *ngxUnless="!course.iconUrl"></course-image>
+
+
+
+      <div> class="course-description" (dblclick)="highlighter.toggleApi()">
+
+        Edit Title: <input #courseTitle [value]="course.description" (keyup)="onTitleChanged(courseTitle.value)">
+
+      </div>
 
     </course-card>
 

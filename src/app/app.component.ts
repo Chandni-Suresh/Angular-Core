@@ -1,13 +1,15 @@
-import {AfterViewInit, Component, ElementRef, Inject, InjectionToken,  QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Inject, InjectionToken,  Optional,  QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {ChangeDetectionStrategy, ChangeDetectorRef,  DoCheck,  Injector, OnInit} from '@angular/core';
 import {Course} from './model/course';
 import {Observable} from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { CoursesService } from './services/courses.service';
-import {AppConfig, CONFIG_TOKEN} from './config';
+import {AppConfig, APP_CONFIG, CONFIG_TOKEN} from './config';
 import {COURSES} from '../db-data';
 import {createCustomElement} from '@angular/elements';
 import {CourseTitleComponent} from './course-title/course-title.component';
+import { HighlightedDirective } from './courses/directives/highlighted.directive';
+import { CourseCardComponent } from './courses/course-card/course-card.component';
 
 
 //factory method that created the dependency class
@@ -23,25 +25,35 @@ import {CourseTitleComponent} from './course-title/course-title.component';
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
+    providers:[
+      {provide: CONFIG_TOKEN, useFactory:()=>APP_CONFIG},
+      CoursesService
+    ]
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit,AfterViewInit {
 
   courses$:Observable<Course[]>
    
+  @ViewChildren(CourseCardComponent ,{read: HighlightedDirective})
+  highlightedDirective:HighlightedDirective;
 
     constructor(
-        private coursesService: CoursesService,
-        @Inject(CONFIG_TOKEN) private config: AppConfig,
-        private injector: Injector) {
+        @Optional()private coursesService: CoursesService,@Inject(CONFIG_TOKEN) config:AppConfig    
+        ) {
 
+          console.log(config);
           this.courses$=this.coursesService.loadCourses();  
     }
 
+  ngAfterViewInit() {
+    console.log("Inside After View init",this.highlightedDirective);
+  }
+
     ngOnInit() {
 
-        const htmlElement = createCustomElement(CourseTitleComponent, {injector:this.injector});
+       // const htmlElement = createCustomElement(CourseTitleComponent, {injector:this.injector});
 
-        customElements.define('course-title', htmlElement);
+        //customElements.define('course-title', htmlElement);
     }
  
       
@@ -57,6 +69,8 @@ export class AppComponent implements OnInit {
             
     }
 
-
+    OnToggleEvenetHandler($event){
+      console.log("Toggle is ", $event);
+    }
   }
 

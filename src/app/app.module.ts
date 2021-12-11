@@ -6,11 +6,15 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
 import {CoursesModule} from './courses/courses.module';
 import {CourseTitleComponent} from './course-title/course-title.component';
+import { HighlightedDirective } from './directives/highlighted.directive';
+import { NgxUnlessDirective } from './directives/ngx-unless.directive';
 
 @NgModule({
     declarations: [
         AppComponent,
-        CourseTitleComponent
+        CourseTitleComponent,
+        HighlightedDirective,
+        NgxUnlessDirective
     ],
     imports: [
         BrowserModule,

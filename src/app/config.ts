@@ -16,6 +16,8 @@ export const APP_CONFIG:AppConfig = {
 export const CONFIG_TOKEN =
     new InjectionToken<AppConfig>('CONFIG_TOKEN',
         {
+            //Make it a singleton and available in the application bundle only when injected.
+            //ProvidedIn makes it tree shakeable.
             providedIn: 'root',
             factory: () => APP_CONFIG
         });
